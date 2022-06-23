@@ -1,35 +1,29 @@
 const express = require("express");
-//lodash
-const _ = require("lodash");
+const { upperFirst } = require("lodash");
+
+const {
+  createWorkout,
+  getWorkout,
+  getWorkouts,
+  deleteWorkout,
+  updateWorkout,
+} = require("../controller/workoutController");
+
 const router = express.Router();
 
-//get all the workouts
-router.get("/", (req, res) => {
-  res.json({ mssg: "GET all workouts" });
-});
+// GET all workouts
+router.get("/", getWorkouts);
 
-const greet = _.once(() => {
-  console.log("Hello");
-});
-greet();
+// GET a single workout
+router.get("/:id", getWorkout);
 
-//gettng a single workout
-router.get("/:id", (req, res) => {
-  res.json({ mssg: "GET a single workout" });
-});
+// POST a new workout
+router.post("/", createWorkout);
 
-//POST a new workout
-router.post("/", (req, res) => {
-  res.json({ mssg: "POST a new workout" });
-});
-//Delete a workout
-router.delete("/:id", (req, res) => {
-  res.json({ mssg: "Delete a workout" });
-});
+// DELETE a workout
+router.delete("/:id", deleteWorkout);
 
-//update a workout
-router.patch("/:id", (req, res) => {
-  res.json({ mssg: "Update a workout" });
-});
+// UPDATE a workout
+router.patch("/:id", updateWorkout);
 
 module.exports = router;
